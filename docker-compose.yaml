@@ -8,14 +8,12 @@ services:
       - 5555:5555
     volumes:
       - .:/home/node/app
-    # extra_hosts:
-    #   - "host.docker.internal:172.17.0.1"
-    # não use docker desktop (linux) ou (windows)
-
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"  
   db:
     image: bitnami/mongodb:5.0.17
     volumes:
-      - mongodb_data:/bitnami/mongodb
+      - mongodb_data_c:/bitnami/mongodb
     environment:
       MONGODB_ROOT_PASSWORD: root
       MONGODB_REPLICA_SET_MODE: primary
@@ -23,5 +21,9 @@ services:
       MONGODB_DATABASE: nest
 
 volumes:
-  mongodb_data:
+  mongodb_data_c:
     driver: local
+
+networks:
+  my-network:
+    external: true
